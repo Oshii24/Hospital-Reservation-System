@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-    profile.php - ANY logged-in user edits their own name, phone and password
+    profile.html - ANY logged-in user edits their own name, phone and password
     HTML: done.
     PHP TODO (Member 2): fill the form with the user's data (SELECT) and save changes (UPDATE).
 -->
@@ -17,16 +17,16 @@
 <!-- ===== NAVBAR (patient version shown here - the real navbar will change by role) ===== -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="index.php">&#127973; City Hospital</a>
+        <a class="navbar-brand fw-bold" href="index.html">&#127973; City Hospital</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="mainNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="patient_dashboard.php">My Appointments</a></li>
-                <li class="nav-item"><a class="nav-link" href="book_appointment.php">Book Appointment</a></li>
-                <li class="nav-item"><a class="nav-link active" href="profile.php">Profile</a></li>
-                <li class="nav-item"><a class="nav-link" href="logout.php">Logout (Ali Hassan)</a></li>
+                <li class="nav-item"><a class="nav-link" href="patient_dashboard.html">My Appointments</a></li>
+                <li class="nav-item"><a class="nav-link" href="book_appointment.html">Book Appointment</a></li>
+                <li class="nav-item"><a class="nav-link active" href="profile.html">Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="logout.html">Logout (Ali Hassan)</a></li>
             </ul>
         </div>
     </div>
@@ -42,7 +42,7 @@
                     &middot; Member since 20 Nov 2026
                 </p>
 
-                <form method="POST" action="profile.php">
+                <form method="POST" action="profile.html">
                     <div class="mb-3">
                         <label class="form-label">Email (cannot be changed)</label>
                         <input class="form-control" type="email" value="patient@hospital.com" disabled>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-    patient_dashboard.php - the patient sees their appointments and can cancel them
+    patient_dashboard.html - the patient sees their appointments and can cancel them
     HTML: done.
     PHP TODO (Member 3): only patients can open this page, list THEIR appointments (SELECT + JOIN),
                          and make the Cancel button work (UPDATE status to 'cancelled').
@@ -18,16 +18,16 @@
 <!-- ===== NAVBAR (patient version) ===== -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="index.php">&#127973; City Hospital</a>
+        <a class="navbar-brand fw-bold" href="index.html">&#127973; City Hospital</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="mainNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link active" href="patient_dashboard.php">My Appointments</a></li>
-                <li class="nav-item"><a class="nav-link" href="book_appointment.php">Book Appointment</a></li>
-                <li class="nav-item"><a class="nav-link" href="profile.php">Profile</a></li>
-                <li class="nav-item"><a class="nav-link" href="logout.php">Logout (Ali Hassan)</a></li>
+                <li class="nav-item"><a class="nav-link active" href="patient_dashboard.html">My Appointments</a></li>
+                <li class="nav-item"><a class="nav-link" href="book_appointment.html">Book Appointment</a></li>
+                <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="logout.html">Logout (Ali Hassan)</a></li>
             </ul>
         </div>
     </div>
@@ -40,11 +40,11 @@
 
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2 class="mb-0">My Appointments</h2>
-        <a href="book_appointment.php" class="btn btn-success">+ Book Appointment</a>
+        <a href="book_appointment.html" class="btn btn-success">+ Book Appointment</a>
     </div>
 
     <!-- PHP TODO (Member 3): show this box instead of the table when there are no appointments -->
-    <div class="alert alert-info">You have no appointments yet. <a href="book_appointment.php">Book one now</a>.</div>
+    <div class="alert alert-info">You have no appointments yet. <a href="book_appointment.html">Book one now</a>.</div>
 
     <div class="table-responsive">
         <table class="table table-striped table-hover bg-white align-middle">
@@ -72,7 +72,7 @@
                     <td></td>
                     <td>
                         <!-- The hidden input tells PHP WHICH appointment to cancel -->
-                        <form method="POST" action="patient_dashboard.php" class="d-inline">
+                        <form method="POST" action="patient_dashboard.html" class="d-inline">
                             <input type="hidden" name="cancel_id" value="1">
                             <button class="btn btn-sm btn-outline-danger" type="submit">Cancel</button>
                         </form>

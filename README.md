@@ -158,7 +158,7 @@ git clone https://github.com/Oshii24/Hospital-Reservation-System.git hospital
 open <http://localhost/phpmyadmin> → **Import** tab → choose `database/hospital.sql` → **Import**.
 Re-import it whenever Member 1 changes it.
 
-> ⚠️ Always open pages through `http://localhost/hospital/...`. Double-clicking a `.php` file will **not** work.
+> ⚠️ Right now the pages are `.html`, so you can also just double-click them to preview. Once they become `.php`, you **must** open them through `http://localhost/hospital/...` – double-clicking a `.php` file will **not** work.
 
 ---
 
@@ -166,7 +166,9 @@ Re-import it whenever Member 1 changes it.
 
 ✅ **All HTML + Bootstrap pages** are finished, with **sample data** so you can see how they look.
 
-Each page is saved as `.php` (a `.php` file can contain plain HTML), so you add PHP **inside the same file** – no renaming, links keep working.
+For now every page is plain **`.html`**. Forms show up but don't save anything yet – that's what the PHP is for.
+
+**Before anyone adds PHP, Member 1 renames every page from `.html` to `.php`** (see [7.1 Step 3](#71-member-1--database--shared-layout--admin-dashboard)). PHP code only runs inside `.php` files. After that, everyone adds their PHP **inside the same file**. The guides below already use the final `.php` names.
 
 Inside every page you'll find comments like this:
 
@@ -178,17 +180,17 @@ That's your job marker. Search your files for `PHP TODO` to find all of them.
 
 ```
 hospital/
-├── index.php               Home page                    → Member 4 (departments list)
-├── register.php            Patient sign-up              → Member 2
-├── login.php               Login for all roles          → Member 2
-├── profile.php             Edit my profile              → Member 2
-├── book_appointment.php    Book an appointment          → Member 3
-├── patient_dashboard.php   Patient's appointments       → Member 3
-├── doctor_dashboard.php    Doctor's appointments        → Member 4
-├── admin_departments.php   Manage departments           → Member 4
-├── admin_dashboard.php     Totals + all appointments    → Member 1
-├── admin_doctors.php       Manage doctors               → Member 5
-├── admin_patients.php      Manage patients              → Member 5
+├── index.html               Home page                    → Member 4 (departments list)
+├── register.html            Patient sign-up              → Member 2
+├── login.html               Login for all roles          → Member 2
+├── profile.html             Edit my profile              → Member 2
+├── book_appointment.html    Book an appointment          → Member 3
+├── patient_dashboard.html   Patient's appointments       → Member 3
+├── doctor_dashboard.html    Doctor's appointments        → Member 4
+├── admin_departments.html   Manage departments           → Member 4
+├── admin_dashboard.html     Totals + all appointments    → Member 1
+├── admin_doctors.html       Manage doctors               → Member 5
+├── admin_patients.html      Manage patients              → Member 5
 └── css/style.css           Our extra styles             ✅ done
 
 New files to create:
@@ -265,7 +267,16 @@ require_login('patient');   // 'patient', 'doctor', 'admin', or empty = any logg
 
 **Step 2 – `includes/db.php`** – connects to the database. See [8.1](#81-connect-to-the-database). Every page will use `$conn`.
 
-**Step 3 – `includes/header.php` and `includes/footer.php`**
+**Step 3 – Turn the pages into `.php`, then make `includes/header.php` and `includes/footer.php`**
+
+First, rename every page from `.html` to `.php` (PHP only runs in `.php` files). In **Git Bash**, inside the project folder:
+```bash
+for f in *.html; do git mv "$f" "${f%.html}.php"; done
+```
+Then fix the links inside the pages: in VS Code press **Ctrl+Shift+H** (Replace in Files), search `.html`, replace with `.php`, files to include `*.php`, click **Replace All**. Check one page in the browser, then commit and push.
+
+Now the shared layout:
+
 1. `header.php` = everything from `<!DOCTYPE html>` down to `<main ...>` (copy it from any page). Add `require_once __DIR__ . '/auth.php';` at the top.
 2. Make the **navbar change by role** with `$_SESSION['role']`. The 4 navbar versions (visitor, patient, doctor, admin) are already in the pages – copy their links.
 3. Use `<title><?= $page_title ?> | City Hospital</title>` and call `show_flash();` right after `<main>`.

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-    admin_dashboard.php - totals at the top + every appointment in the hospital
+    admin_dashboard.html - totals at the top + every appointment in the hospital
     HTML: done.
     PHP TODO (Member 1): only admins can open this page, count rows for the 4 boxes (SELECT COUNT(*)),
                          list all appointments (SELECT + JOIN), and make Delete work (DELETE).
@@ -18,18 +18,18 @@
 <!-- ===== NAVBAR (admin version) ===== -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="index.php">&#127973; City Hospital</a>
+        <a class="navbar-brand fw-bold" href="index.html">&#127973; City Hospital</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="mainNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link active" href="admin_dashboard.php">Dashboard</a></li>
-                <li class="nav-item"><a class="nav-link" href="admin_doctors.php">Doctors</a></li>
-                <li class="nav-item"><a class="nav-link" href="admin_departments.php">Departments</a></li>
-                <li class="nav-item"><a class="nav-link" href="admin_patients.php">Patients</a></li>
-                <li class="nav-item"><a class="nav-link" href="profile.php">Profile</a></li>
-                <li class="nav-item"><a class="nav-link" href="logout.php">Logout (System Admin)</a></li>
+                <li class="nav-item"><a class="nav-link active" href="admin_dashboard.html">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="admin_doctors.html">Doctors</a></li>
+                <li class="nav-item"><a class="nav-link" href="admin_departments.html">Departments</a></li>
+                <li class="nav-item"><a class="nav-link" href="admin_patients.html">Patients</a></li>
+                <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="logout.html">Logout (System Admin)</a></li>
             </ul>
         </div>
     </div>
@@ -42,21 +42,21 @@
     <!-- PHP TODO (Member 1): replace each number with a COUNT(*) from the database -->
     <div class="row g-4 mb-5 text-center">
         <div class="col-6 col-lg-3">
-            <a href="admin_patients.php" class="text-decoration-none">
+            <a href="admin_patients.html" class="text-decoration-none">
                 <div class="card card-hover border-primary"><div class="card-body">
                     <div class="stat-number text-primary">12</div>Patients
                 </div></div>
             </a>
         </div>
         <div class="col-6 col-lg-3">
-            <a href="admin_doctors.php" class="text-decoration-none">
+            <a href="admin_doctors.html" class="text-decoration-none">
                 <div class="card card-hover border-success"><div class="card-body">
                     <div class="stat-number text-success">4</div>Doctors
                 </div></div>
             </a>
         </div>
         <div class="col-6 col-lg-3">
-            <a href="admin_departments.php" class="text-decoration-none">
+            <a href="admin_departments.html" class="text-decoration-none">
                 <div class="card card-hover border-warning"><div class="card-body">
                     <div class="stat-number text-warning">4</div>Departments
                 </div></div>
@@ -87,7 +87,7 @@
                     <td>Chest pain when running</td>
                     <td><span class="badge bg-warning">pending</span></td>
                     <td>
-                        <form method="POST" action="admin_dashboard.php" class="d-inline">
+                        <form method="POST" action="admin_dashboard.html" class="d-inline">
                             <input type="hidden" name="delete_id" value="1">
                             <button class="btn btn-sm btn-danger" type="submit">Delete</button>
                         </form>
@@ -102,7 +102,7 @@
                     <td>Follow-up on blood pressure</td>
                     <td><span class="badge bg-primary">confirmed</span></td>
                     <td>
-                        <form method="POST" action="admin_dashboard.php" class="d-inline">
+                        <form method="POST" action="admin_dashboard.html" class="d-inline">
                             <input type="hidden" name="delete_id" value="2">
                             <button class="btn btn-sm btn-danger" type="submit">Delete</button>
                         </form>

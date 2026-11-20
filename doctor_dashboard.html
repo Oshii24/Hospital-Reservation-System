@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-    doctor_dashboard.php - the doctor sees appointments booked with them,
+    doctor_dashboard.html - the doctor sees appointments booked with them,
                            changes the status and writes notes
     HTML: done.
     PHP TODO (Member 4): only doctors can open this page, list THEIR appointments (SELECT + JOIN),
@@ -19,15 +19,15 @@
 <!-- ===== NAVBAR (doctor version) ===== -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="index.php">&#127973; City Hospital</a>
+        <a class="navbar-brand fw-bold" href="index.html">&#127973; City Hospital</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="mainNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link active" href="doctor_dashboard.php">My Appointments</a></li>
-                <li class="nav-item"><a class="nav-link" href="profile.php">Profile</a></li>
-                <li class="nav-item"><a class="nav-link" href="logout.php">Logout (Dr. Sara Ahmed)</a></li>
+                <li class="nav-item"><a class="nav-link active" href="doctor_dashboard.html">My Appointments</a></li>
+                <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="logout.html">Logout (Dr. Sara Ahmed)</a></li>
             </ul>
         </div>
     </div>
@@ -50,7 +50,7 @@
                     <p class="mb-1"><small class="text-muted">male &middot; born 1998-04-12 &middot; &#128222; 0500000004</small></p>
                     <p><strong>Reason:</strong> Chest pain when running</p>
 
-                    <form method="POST" action="doctor_dashboard.php">
+                    <form method="POST" action="doctor_dashboard.html">
                         <input type="hidden" name="appointment_id" value="1">
                         <div class="mb-2">
                             <select class="form-select form-select-sm" name="status">
@@ -80,7 +80,7 @@
                     <p class="mb-1"><small class="text-muted">female &middot; born 1985-09-03 &middot; &#128222; 0500000005</small></p>
                     <p><strong>Reason:</strong> Follow-up on blood pressure</p>
 
-                    <form method="POST" action="doctor_dashboard.php">
+                    <form method="POST" action="doctor_dashboard.html">
                         <input type="hidden" name="appointment_id" value="2">
                         <div class="mb-2">
                             <select class="form-select form-select-sm" name="status">
