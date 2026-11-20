@@ -5,9 +5,11 @@
 
 | Member | Name | Student ID | Part |
 |--------|------|-----------|------|
-| Member 1 | _(name)_ | _(id)_ | Database + Accounts (register, login, sessions) |
-| Member 2 | _(name)_ | _(id)_ | Patient + Doctor pages |
-| Member 3 | _(name)_ | _(id)_ | Admin pages |
+| Member 1 | _(name)_ | _(id)_ | Database + shared layout + admin dashboard |
+| Member 2 | _(name)_ | _(id)_ | Accounts & sessions (register, login, logout, profile) |
+| Member 3 | _(name)_ | _(id)_ | Patient pages (book + my appointments) |
+| Member 4 | _(name)_ | _(id)_ | Doctor page + departments |
+| Member 5 | _(name)_ | _(id)_ | Admin: manage doctors + patients |
 
 ---
 
@@ -19,13 +21,11 @@
 4. [Setup – run it on your computer](#4-setup--run-it-on-your-computer)
 5. [What is already done](#5-what-is-already-done)
 6. [Who does what](#6-who-does-what)
-7. [Member 1 guide – Database + Accounts](#7-member-1-guide--database--accounts)
-8. [Member 2 guide – Patient + Doctor pages](#8-member-2-guide--patient--doctor-pages)
-9. [Member 3 guide – Admin pages](#9-member-3-guide--admin-pages)
-10. [PHP cheat sheet (everyone reads this)](#10-php-cheat-sheet-everyone-reads-this)
-11. [Git workflow for the team](#11-git-workflow-for-the-team)
-12. [Troubleshooting](#12-troubleshooting)
-13. [Next phase – Bonuses](#13-next-phase--bonuses)
+7. [Member guides (step by step)](#7-member-guides-step-by-step)
+8. [PHP cheat sheet (everyone reads this)](#8-php-cheat-sheet-everyone-reads-this)
+9. [Git workflow for the team](#9-git-workflow-for-the-team)
+10. [Troubleshooting](#10-troubleshooting)
+11. [Next phase – Bonuses](#11-next-phase--bonuses)
 
 ---
 
@@ -122,13 +122,14 @@ erDiagram
 |-------------|-------|-----|
 | HTML | All pages | ✅ Done |
 | CSS (Bootstrap) | All pages + `css/style.css` | ✅ Done |
-| PHP Validation | Every form | Everyone |
-| PHP Sessions | Login, logout, page protection | Member 1 (everyone uses it) |
-| Database | `database/hospital.sql`, `includes/db.php` | Member 1 (everyone uses it) |
-| Insert / Select / Update / Delete | Every member uses all four (see section 6) | Everyone |
-| Admin with own interface | `admin_*.php` | Member 3 |
-| User: register, login, use a feature | `register.php`, `login.php`, booking | Member 1 + 2 |
-| Extra user type | Doctor | Member 2 |
+| PHP Validation | Every form | Members 2, 3, 4, 5 |
+| PHP Sessions | Login, logout, page protection | Member 2 builds it, everyone uses it |
+| Database | `database/hospital.sql`, `includes/db.php` | Member 1 builds it, everyone uses it |
+| Insert / Select / Update / Delete | Spread across everyone (see section 6) | Everyone |
+| Admin with own interface | `admin_*.php` | Members 1, 4, 5 |
+| User: register, login, use a feature | Register, login, booking | Members 2 + 3 |
+| Extra user type | Doctor | Member 4 |
+| ERD in documentation | Section 2 | Member 1 |
 
 ---
 
@@ -146,7 +147,7 @@ cd C:/xampp/htdocs
 ```
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/YOUR-REPO-NAME.git hospital
+git clone https://github.com/Oshii24/Hospital-Reservation-System.git hospital
 ```
 
 **3. Start the server:** open the **XAMPP Control Panel** → click **Start** on **Apache** and **MySQL**.
@@ -170,192 +171,231 @@ Each page is saved as `.php` (a `.php` file can contain plain HTML), so you add 
 Inside every page you'll find comments like this:
 
 ```html
-<!-- PHP TODO (Member 2): repeat ONE <tr> for every appointment. These rows are samples. -->
+<!-- PHP TODO (Member 3): repeat ONE <tr> for every appointment. These rows are samples. -->
 ```
 
 That's your job marker. Search your files for `PHP TODO` to find all of them.
 
 ```
 hospital/
-├── index.php               Home page                     → Member 3 (departments list)
-├── register.php            Patient sign-up               → Member 1
-├── login.php               Login for all roles           → Member 1
-├── profile.php             Edit my profile               → Member 2
-├── patient_dashboard.php   Patient's appointments        → Member 2
-├── book_appointment.php    Book an appointment           → Member 2
-├── doctor_dashboard.php    Doctor's appointments         → Member 2
-├── admin_dashboard.php     Totals + all appointments     → Member 3
-├── admin_departments.php   Manage departments            → Member 3
-├── admin_doctors.php       Manage doctors                → Member 3
-├── admin_patients.php      Manage patients               → Member 3
-└── css/style.css           Our extra styles              ✅ done
+├── index.php               Home page                    → Member 4 (departments list)
+├── register.php            Patient sign-up              → Member 2
+├── login.php               Login for all roles          → Member 2
+├── profile.php             Edit my profile              → Member 2
+├── book_appointment.php    Book an appointment          → Member 3
+├── patient_dashboard.php   Patient's appointments       → Member 3
+├── doctor_dashboard.php    Doctor's appointments        → Member 4
+├── admin_departments.php   Manage departments           → Member 4
+├── admin_dashboard.php     Totals + all appointments    → Member 1
+├── admin_doctors.php       Manage doctors               → Member 5
+├── admin_patients.php      Manage patients              → Member 5
+└── css/style.css           Our extra styles             ✅ done
+
+New files to create:
+├── database/hospital.sql   → Member 1
+├── includes/db.php         → Member 1
+├── includes/header.php     → Member 1
+├── includes/footer.php     → Member 1
+├── includes/auth.php       → Member 2
+└── logout.php              → Member 2
 ```
 
 ---
 
 ## 6. Who does what
 
-Every member uses **Validation, Sessions, and all 4 database actions**, so everyone can answer questions in the individual discussion.
+Each member uses **at least three** of the database actions, so everyone can answer questions in the individual discussion.
 
-| | Member 1 – Database + Accounts | Member 2 – Patient + Doctor | Member 3 – Admin |
-|-|-------------------------------|-----------------------------|------------------|
-| **Files** | `database/hospital.sql` (new), `includes/*` (new), `logout.php` (new), `register.php`, `login.php` | `book_appointment.php`, `patient_dashboard.php`, `doctor_dashboard.php`, `profile.php` | `admin_dashboard.php`, `admin_departments.php`, `admin_doctors.php`, `admin_patients.php`, `index.php` |
-| **INSERT** | Register a patient | Book an appointment | Add department, add doctor |
-| **SELECT** | Login | Appointments lists, doctor list | Totals, all lists, search |
-| **UPDATE** | – (sample data) | Cancel, doctor status/notes, profile | Edit department |
-| **DELETE** | – | – | Delete appointment / department / doctor / patient |
-| **Validation** | Register + login forms | Booking + profile forms | Department + doctor forms |
-| **Sessions** | Builds it (login/logout/protection) | Uses it (who is logged in) | Uses it (admin only) |
+| Member | Part | INSERT | SELECT | UPDATE | DELETE | Validation | Sessions |
+|--------|------|:-:|:-:|:-:|:-:|:-:|:-:|
+| **1** | Database + layout + admin dashboard | ✅ sample data | ✅ totals, all appointments | – | ✅ appointment | – (designs the tables) | uses role in navbar |
+| **2** | Accounts & sessions | ✅ register | ✅ login | ✅ profile | – | ✅ register, login, profile | ✅ **builds it** |
+| **3** | Patient pages | ✅ book | ✅ my appointments, doctor list | ✅ cancel | – | ✅ booking + double booking | uses `user_id` |
+| **4** | Doctor + departments | ✅ add dept | ✅ doctor's list, depts, home | ✅ status/notes, edit dept | ✅ dept | ✅ status, dept name | uses doctor role |
+| **5** | Admin doctors + patients | ✅ add doctor (2 tables) | ✅ doctors, patient search | – | ✅ doctor, patient | ✅ doctor form | uses admin role |
 
 ### Order of work (important!)
 
 ```
-Week 1:  Member 1 → Steps 1–3 (database + includes)  → push  → tell the team
-         Member 2 & 3 → read section 10, practise your SQL queries in phpMyAdmin
-Week 2+: Everyone works on their own pages, in their own branch, at the same time
+Step 1:  Member 1 → database + db.php + header/footer   → push → tell the team
+         Member 2 → auth.php (sessions + helpers)        → push → tell the team
+         Members 3, 4, 5 → read section 8, practise your SQL in phpMyAdmin's SQL tab
+Step 2:  Everyone works on their own pages, in their own branch, at the same time
+Step 3:  Test the full flow together (register → book → doctor confirms → admin sees it)
 ```
 
-Member 1 goes first because everyone needs the database and the shared files.
+Members 1 and 2 go first because every page needs the database, the layout, and the session helpers.
 
 ---
 
-## 7. Member 1 guide – Database + Accounts
+## 7. Member guides (step by step)
 
-### Step 1 – Create `database/hospital.sql`
-1. Make a folder `database` and a file `hospital.sql` inside it.
-2. Write `CREATE TABLE` for the 4 tables in the ERD (section 2). Start the file with:
+Every private page starts with these lines (Member 2 creates `auth.php`):
+
+```php
+<?php
+require_once 'includes/db.php';
+require_once 'includes/auth.php';
+require_login('patient');   // 'patient', 'doctor', 'admin', or empty = any logged-in user
+```
+
+---
+
+### 7.1 Member 1 – Database + shared layout + admin dashboard
+
+**Step 1 – `database/hospital.sql`**
+1. Make a folder `database` and a file `hospital.sql` inside it. Start with:
    ```sql
    DROP DATABASE IF EXISTS hospital_db;
    CREATE DATABASE hospital_db;
    USE hospital_db;
    ```
-3. Order matters: create `users` and `departments` **before** `doctors`, and `doctors` before `appointments` (you can't point to a table that doesn't exist yet).
-4. Example of one foreign key line:
+2. Write `CREATE TABLE` for the 4 tables in the ERD (section 2).
+   Order matters: `users` and `departments` **first**, then `doctors`, then `appointments` (a foreign key can't point to a table that doesn't exist yet).
+3. Example foreign key line:
    ```sql
    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
    ```
-5. Add **sample data**: 4 departments, 1 admin, 2 doctors (a `users` row + a `doctors` row each), 1 patient.
-6. Passwords must be **hashed**. To get a hash, make a temporary file `hash.php`, open it at `localhost/hospital/hash.php`, copy the result, then delete the file:
+4. Add **sample data**: 4 departments, 1 admin, 2 doctors (a `users` row **and** a `doctors` row each), 1 patient, 1–2 appointments.
+5. Passwords must be **hashed**. Make a temporary file `hash.php`, open `localhost/hospital/hash.php`, copy the result, then **delete the file**:
    ```php
    <?php echo password_hash('password', PASSWORD_DEFAULT);
    ```
-7. Import it in phpMyAdmin to test. Push it.
+6. Import it in phpMyAdmin to test. Write the test logins in this README. Push.
 
-### Step 2 – Create `includes/db.php`
-Connects to the database. Every page will `require_once 'includes/db.php';` and then use `$conn`. See [cheat sheet 10.1](#101-connect-to-the-database).
+**Step 2 – `includes/db.php`** – connects to the database. See [8.1](#81-connect-to-the-database). Every page will use `$conn`.
 
-### Step 3 – Create the shared files in `includes/`
-| File | What goes in it |
-|------|-----------------|
-| `header.php` | Everything from `<!DOCTYPE html>` down to `<main ...>` (copy it from any page). Make the **navbar change by role** using `$_SESSION['role']` (the 4 navbar versions are already in the pages – look at them). Also call `show_flash();` right after `<main>`. |
-| `footer.php` | From `</main>` to `</html>`. |
-| `auth.php` | `session_start()` and these small functions: `require_login($role)`, `set_flash($msg)`, `show_flash()`, `e($text)`. See [10.5](#105-sessions) and [10.7](#107-print-safely-with-e). |
+**Step 3 – `includes/header.php` and `includes/footer.php`**
+1. `header.php` = everything from `<!DOCTYPE html>` down to `<main ...>` (copy it from any page). Add `require_once __DIR__ . '/auth.php';` at the top.
+2. Make the **navbar change by role** with `$_SESSION['role']`. The 4 navbar versions (visitor, patient, doctor, admin) are already in the pages – copy their links.
+3. Use `<title><?= $page_title ?> | City Hospital</title>` and call `show_flash();` right after `<main>`.
+4. `footer.php` = from `</main>` to `</html>`.
+5. In **every page**, replace the copied navbar/footer with:
+   ```php
+   <?php $page_title = 'Login'; require 'includes/header.php'; ?>
+      ... page content ...
+   <?php require 'includes/footer.php'; ?>
+   ```
+   Push this **before** the others start, so nobody gets merge conflicts.
 
-Then **in every page**, replace the copied navbar/footer with:
-```php
-<?php $page_title = 'Login'; require 'includes/header.php'; ?>
-   ... the page content ...
-<?php require 'includes/footer.php'; ?>
-```
-Push this **before** the others start, so nobody gets merge conflicts.
+**Step 4 – `admin_dashboard.php`**
+1. `require_login('admin');`
+2. The 4 numbers: `SELECT COUNT(*) AS c FROM users WHERE role = 'patient'`, and the same for `doctors`, `departments`, `appointments`.
+3. All appointments: JOIN `appointments` → `users` (patient name) and → `doctors` → `users` again (doctor name). Give the same table two nicknames: `JOIN users p ...` and `JOIN users du ...`.
+4. Delete button: `DELETE FROM appointments WHERE id = ?`.
 
-### Step 4 – `register.php`
+✅ **Done when:** the database imports with no errors, every page shows the right navbar for the logged-in role, and the dashboard shows real numbers.
+
+🎤 **Be ready to explain:** the ERD, primary/foreign keys, `ON DELETE CASCADE`, how `include` avoids repeating code.
+
+---
+
+### 7.2 Member 2 – Accounts & sessions
+
+**Step 1 – `includes/auth.php`** (everyone needs this – push it early!)
+Put in: `session_start()` and the helper functions `require_login($role)`, `set_flash($msg)`, `show_flash()`, `e($text)`. All of them are written out in [8.5](#85-sessions) and [8.7](#87-print-safely-with-e).
+
+**Step 2 – `register.php`** (INSERT)
 1. When the form is sent (`POST`), read every field from `$_POST`.
-2. **Validate** ([10.4](#104-validation)): name ≥ 3 letters, valid email, phone digits only, gender is male/female, date of birth not in the future, password ≥ 6, both passwords match.
+2. **Validate** ([8.4](#84-validation)): name ≥ 3 letters, valid email, phone digits only, gender is male/female, date of birth not in the future, password ≥ 6, both passwords match.
 3. Check the email isn't already used (`SELECT`).
-4. If no errors → `password_hash()` the password → `INSERT` with role `'patient'` → flash "Account created" → redirect to `login.php`.
-5. If errors → show them in the red box, and keep what the user typed (`value="<?= e($email) ?>"`).
+4. No errors → `password_hash()` → `INSERT` with role `'patient'` → flash "Account created" → redirect to `login.php`.
+5. Errors → show them in the red box, and keep what the user typed (`value="<?= e($email) ?>"`).
 
-### Step 5 – `login.php`
-1. Validate email + password are filled.
+**Step 3 – `login.php`** (SELECT + sessions)
+1. Validate both fields are filled.
 2. `SELECT id, full_name, password, role FROM users WHERE email = ?`
 3. `password_verify($typed, $user['password'])` → if true, save `user_id`, `full_name`, `role` in `$_SESSION`.
 4. Redirect by role: admin → `admin_dashboard.php`, doctor → `doctor_dashboard.php`, patient → `patient_dashboard.php`.
 5. Wrong → show "Wrong email or password."
 
-### Step 6 – `logout.php` (new file, no HTML)
-`session_start()`, `session_destroy()`, redirect to `login.php`.
+**Step 4 – `logout.php`** (new file, no HTML): `session_start()`, `session_destroy()`, redirect to `login.php`.
 
-✅ **Done when:** you can register, log in as each role, land on the right dashboard, and log out.
-
----
-
-## 8. Member 2 guide – Patient + Doctor pages
-
-Start each page with:
-```php
-<?php
-require_once 'includes/db.php';
-require_once 'includes/auth.php';
-require_login('patient');   // or 'doctor' on the doctor page
-```
-
-### `book_appointment.php` (INSERT)
-1. Fill the doctor `<select>` with a `SELECT` that JOINs `doctors` → `users` (name) → `departments` (name). [10.6](#106-join--combine-tables)
-2. On submit, **validate**: doctor exists, date is today or later, time is in the list, reason 5–255 chars.
-3. **Block double booking:** `SELECT` an appointment with the same doctor + date + time whose status isn't `'cancelled'`. If found → error.
-4. `INSERT` the appointment with `patient_id = $_SESSION['user_id']` → flash → redirect to `patient_dashboard.php`.
-
-### `patient_dashboard.php` (SELECT + UPDATE)
-1. `SELECT` the appointments `WHERE patient_id = ?` (your own `user_id`), JOIN to get the doctor's name and department.
-2. Loop and print one `<tr>` per row ([10.3](#103-show-rows-in-a-table)). Show the "no appointments" box if there are 0 rows.
-3. Show the **Cancel** button only for `pending` or `confirmed`.
-4. Cancel: `UPDATE appointments SET status = 'cancelled' WHERE id = ? AND patient_id = ?`
-   (the `AND patient_id` stops patients cancelling other people's appointments).
-
-### `doctor_dashboard.php` (SELECT + UPDATE)
-1. ⚠️ `users.id` is **not** the same as `doctors.id`. First find the doctor's id:
-   `SELECT id FROM doctors WHERE user_id = ?`
-2. `SELECT` the appointments `WHERE doctor_id = ?`, JOIN `users` for the patient's info. One card per row.
-3. Save button: validate the status is one of the 4 allowed values → `UPDATE ... SET status = ?, doctor_notes = ? WHERE id = ? AND doctor_id = ?`.
-
-### `profile.php` (SELECT + UPDATE)
-1. `require_login();` (no role = any logged-in user).
+**Step 5 – `profile.php`** (SELECT + UPDATE)
+1. `require_login();` (no role = anyone logged in).
 2. `SELECT` the user's info and put it in the inputs' `value`.
-3. On submit: validate name + phone → `UPDATE`. If "new password" isn't empty → hash it → `UPDATE` the password too.
+3. On submit: validate name + phone → `UPDATE`. If "new password" isn't empty → hash it → `UPDATE` it too.
 4. Update `$_SESSION['full_name']` so the navbar shows the new name.
 
-✅ **Done when:** a patient can book, see, and cancel; a doctor sees it, changes the status, writes a note; the patient sees the note.
+✅ **Done when:** you can register, log in as each role, land on the right dashboard, edit your profile, and log out. Typing `admin_dashboard.php` while logged in as a patient sends you away.
+
+🎤 **Be ready to explain:** what a session is, why passwords are hashed, server vs browser validation.
 
 ---
 
-## 9. Member 3 guide – Admin pages
+### 7.3 Member 3 – Patient pages
 
-Start each admin page with `require_login('admin');` (see Member 2's first snippet).
+**`book_appointment.php`** (SELECT + INSERT)
+1. `require_login('patient');`
+2. Fill the doctor `<select>` with a `SELECT` that JOINs `doctors` → `users` (name) → `departments` (name). See [8.6](#86-join--combine-tables).
+3. Add `min="<?= date('Y-m-d') ?>"` to the date input.
+4. On submit, **validate**: doctor exists, date is today or later, time is in the list, reason 5–255 chars.
+5. **Block double booking:** `SELECT` an appointment with the same doctor + date + time whose status isn't `'cancelled'`. Found → error.
+6. `INSERT` the appointment with `patient_id = $_SESSION['user_id']` → flash → redirect to `patient_dashboard.php`.
 
-### `admin_dashboard.php` (SELECT + DELETE)
-1. 4 numbers: `SELECT COUNT(*) AS c FROM users WHERE role = 'patient'`, and the same for `doctors`, `departments`, `appointments`.
-2. All appointments: JOIN `appointments` → `users` (patient name) and → `doctors` → `users` again (doctor name). Tip: give the same table two nicknames: `JOIN users p ...` and `JOIN users du ...`.
-3. Delete button: `DELETE FROM appointments WHERE id = ?`.
+**`patient_dashboard.php`** (SELECT + UPDATE)
+1. `SELECT` the appointments `WHERE patient_id = ?` (your own `user_id`), JOIN to get the doctor's name and department.
+2. One `<tr>` per row ([8.3](#83-show-rows-in-a-table)). Show the "no appointments" box when there are 0 rows.
+3. Badge colours: pending = `bg-warning`, confirmed = `bg-primary`, completed = `bg-success`, cancelled = `bg-secondary`.
+4. Show **Cancel** only for `pending` or `confirmed`.
+5. Cancel: `UPDATE appointments SET status = 'cancelled' WHERE id = ? AND patient_id = ?`
+   (the `AND patient_id` stops patients cancelling other people's appointments).
 
-### `admin_departments.php` (all 4: INSERT, SELECT, UPDATE, DELETE)
-This is the best page to explain CRUD in the discussion.
-1. **SELECT** all departments into the table.
-2. Form sent with `id = 0` → **INSERT**. With `id > 0` → **UPDATE**.
-3. Clicking **Edit** opens `admin_departments.php?edit=3` → read `$_GET['edit']`, `SELECT` that department, fill the form, put its id in the hidden input, and change the title to "Edit department".
-4. Validate: name ≥ 2 chars and not already used.
-5. **DELETE** when `action = delete`.
+✅ **Done when:** a patient can book, can't double-book, sees their list, and can cancel.
 
-### `admin_doctors.php` (INSERT into 2 tables + DELETE)
-1. Fill the department `<select>` from the database.
-2. Validate all fields + email not already used.
-3. `INSERT` into `users` with role `'doctor'` → get the new id with `$conn->insert_id` → `INSERT` into `doctors` with that `user_id`.
-4. Delete: `DELETE FROM users WHERE id = ? AND role = 'doctor'` (the doctors row disappears by itself thanks to `ON DELETE CASCADE`).
-
-### `admin_patients.php` (SELECT with search + DELETE)
-1. Read `$_GET['search']`. Use `WHERE role = 'patient' AND (full_name LIKE ? OR email LIKE ?)` with `'%' . $search . '%'`.
-2. Delete: `DELETE FROM users WHERE id = ? AND role = 'patient'`.
-
-### `index.php`
-Replace the 4 sample department cards with a loop over `SELECT name, description FROM departments`.
-
-✅ **Done when:** you can add/edit/delete a department, add a doctor who can then log in, search & delete patients, and delete appointments.
+🎤 **Be ready to explain:** JOIN, prepared statements, why `AND patient_id = ?` matters.
 
 ---
 
-## 10. PHP cheat sheet (everyone reads this)
+### 7.4 Member 4 – Doctor page + departments
 
-### 10.1 Connect to the database
+**`doctor_dashboard.php`** (SELECT + UPDATE)
+1. `require_login('doctor');`
+2. ⚠️ `users.id` is **not** the same as `doctors.id`. First find the doctor's id: `SELECT id FROM doctors WHERE user_id = ?`
+3. `SELECT` the appointments `WHERE doctor_id = ?`, JOIN `users` for the patient's info. One card per row.
+4. Save button: validate the status is one of the 4 allowed values → `UPDATE appointments SET status = ?, doctor_notes = ? WHERE id = ? AND doctor_id = ?`.
+
+**`admin_departments.php`** (all 4: INSERT, SELECT, UPDATE, DELETE)
+1. `require_login('admin');`
+2. **SELECT** all departments into the table.
+3. Form sent with `id = 0` → **INSERT**. With `id > 0` → **UPDATE**.
+4. Clicking **Edit** opens `admin_departments.php?edit=3` → read `$_GET['edit']`, `SELECT` that department, fill the form, put its id in the hidden input, change the title to "Edit department".
+5. Validate: name ≥ 2 chars and not already used.
+6. **DELETE** when `action = delete`.
+
+**`index.php`** – replace the 4 sample department cards with a loop over `SELECT name, description FROM departments`.
+
+✅ **Done when:** a doctor sees their appointments, changes status and writes notes (the patient sees them); departments can be added, edited, deleted, and show on the home page.
+
+🎤 **Be ready to explain:** full CRUD on one page, `$_GET` vs `$_POST`.
+
+---
+
+### 7.5 Member 5 – Admin: manage doctors + patients
+
+**`admin_doctors.php`** (INSERT into 2 tables + SELECT + DELETE)
+1. `require_login('admin');`
+2. Fill the department `<select>` from the database.
+3. Validate all fields (same rules as register) + email not already used.
+4. `INSERT` into `users` with role `'doctor'` → get the new id with `$conn->insert_id` → `INSERT` into `doctors` with that `user_id`.
+5. List doctors: JOIN `doctors` → `users` → `departments`.
+6. Delete: `DELETE FROM users WHERE id = ? AND role = 'doctor'` (the `doctors` row disappears by itself thanks to `ON DELETE CASCADE`).
+
+**`admin_patients.php`** (SELECT with search + DELETE)
+1. `require_login('admin');`
+2. Read `$_GET['search']`. Use `WHERE role = 'patient' AND (full_name LIKE ? OR email LIKE ?)` with `'%' . $search . '%'`.
+3. Show "No patients found." when there are 0 rows.
+4. Delete: `DELETE FROM users WHERE id = ? AND role = 'patient'`.
+
+✅ **Done when:** the admin adds a doctor who can then log in, deletes doctors, and searches & deletes patients.
+
+🎤 **Be ready to explain:** `insert_id`, inserting into two linked tables, `LIKE` search.
+
+---
+
+## 8. PHP cheat sheet (everyone reads this)
+
+### 8.1 Connect to the database
 ```php
 <?php
 $conn = new mysqli('localhost', 'root', '', 'hospital_db');   // XAMPP: user root, no password
@@ -365,7 +405,7 @@ if ($conn->connect_error) {
 $conn->set_charset('utf8mb4');
 ```
 
-### 10.2 Run a query safely (prepared statements)
+### 8.2 Run a query safely (prepared statements)
 ❌ Never put user input straight into SQL (*SQL injection*):
 ```php
 $conn->query("SELECT * FROM users WHERE email = '$email'");
@@ -380,7 +420,7 @@ $user = $result->fetch_assoc();      // one row as an array, or null
 ```
 INSERT / UPDATE / DELETE are the same, just without `get_result()`.
 
-### 10.3 Show rows in a table
+### 8.3 Show rows in a table
 ```php
 <?php while ($row = $result->fetch_assoc()): ?>
     <tr>
@@ -391,7 +431,7 @@ INSERT / UPDATE / DELETE are the same, just without `get_result()`.
 ```
 `<?= ... ?>` is short for `<?php echo ...; ?>`. Check `$result->num_rows === 0` for "nothing found".
 
-### 10.4 Validation
+### 8.4 Validation
 ```php
 $errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -409,9 +449,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ```
 The HTML already checks in the browser (`required`, `minlength`, `pattern`), but **PHP must check again** because anyone can bypass the browser.
 
-### 10.5 Sessions
+### 8.5 Sessions
 ```php
-session_start();                          // top of every page (put it in auth.php)
+session_start();                          // top of every page (it's in auth.php)
 $_SESSION['user_id'] = $user['id'];       // save (at login)
 $id = $_SESSION['user_id'];               // read (on any page)
 session_destroy();                        // forget everything (at logout)
@@ -434,7 +474,7 @@ function show_flash() {
 }
 ```
 
-### 10.6 JOIN – combine tables
+### 8.6 JOIN – combine tables
 ```sql
 SELECT a.appointment_date, u.full_name AS doctor_name
 FROM appointments a
@@ -444,19 +484,19 @@ WHERE a.patient_id = ?
 ```
 Tip: write and test your SQL in **phpMyAdmin → SQL tab** first, then put it in PHP.
 
-### 10.7 Print safely with `e()`
+### 8.7 Print safely with `e()`
 ```php
 function e($text) { return htmlspecialchars((string) $text, ENT_QUOTES, 'UTF-8'); }
 ```
 Always print user data as `<?= e($row['name']) ?>` so nobody can inject `<script>` (*XSS*).
 
-### 10.8 Passwords
+### 8.8 Passwords
 ```php
 $hash = password_hash($password, PASSWORD_DEFAULT);   // register: store $hash
 password_verify($typed, $user['password']);           // login: true or false
 ```
 
-### 10.9 Redirect after saving
+### 8.9 Redirect after saving
 ```php
 set_flash('Saved!');
 header('Location: patient_dashboard.php');
@@ -466,7 +506,7 @@ This stops the form being sent twice when someone presses F5. Do all PHP logic *
 
 ---
 
-## 11. Git workflow for the team
+## 9. Git workflow for the team
 
 **Rules:** never work on `main` directly · pull before you start · only edit **your own files**.
 
@@ -479,7 +519,7 @@ git pull
 ```
 **2. Make your own branch** (once per feature)
 ```bash
-git checkout -b member2-booking
+git checkout -b member3-booking
 ```
 **3. Save your work**
 ```bash
@@ -490,7 +530,7 @@ git commit -m "Add booking validation and insert"
 ```
 **4. Upload it**
 ```bash
-git push -u origin member2-booking
+git push -u origin member3-booking
 ```
 **5. On GitHub:** click **Compare & pull request** → **Create pull request** → a teammate checks it → **Merge**.
 
@@ -506,7 +546,7 @@ git pull
 
 ---
 
-## 12. Troubleshooting
+## 10. Troubleshooting
 
 | Problem | Fix |
 |---------|-----|
@@ -521,14 +561,15 @@ git pull
 
 ---
 
-## 13. Next phase – Bonuses
+## 11. Next phase – Bonuses
 
 Up to **+5 marks**. Starts once the PHP is working. One bonus per person, kept simple:
 
 | Bonus | Idea | Who |
 |-------|------|-----|
-| Cookies + Dark/Light mode | "Remember my email" on login; dark mode toggle that is remembered | Member 1 |
-| JavaScript | "Are you sure?" before Delete/Cancel; live "passwords match" check | Member 2 |
-| jQuery | Live search on the patients table without reloading | Member 3 |
-| Arabic + English | Language switch (together at the end, if time allows) | Everyone |
+| Dark / Light mode | Toggle button in the navbar using Bootstrap's `data-bs-theme` | Member 1 |
+| Cookies | "Remember my email" checkbox on login; remember the dark/light choice | Member 2 |
+| JavaScript | "Are you sure?" before Cancel/Delete; live "passwords match" check | Member 3 |
+| jQuery | Live search on the patients/doctors tables without reloading | Member 4 |
+| Arabic + English | Language switch button; Arabic uses `dir="rtl"` | Member 5 |
 | Angular / React / Node.js | Skipped – too big for this project | – |

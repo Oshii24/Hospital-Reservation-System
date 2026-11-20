@@ -2,7 +2,7 @@
 <!--
     patient_dashboard.php - the patient sees their appointments and can cancel them
     HTML: done.
-    PHP TODO (Member 2): only patients can open this page, list THEIR appointments (SELECT + JOIN),
+    PHP TODO (Member 3): only patients can open this page, list THEIR appointments (SELECT + JOIN),
                          and make the Cancel button work (UPDATE status to 'cancelled').
 -->
 <html lang="en">
@@ -35,7 +35,7 @@
 
 <main class="container py-4 flex-grow-1">
 
-    <!-- PHP TODO (Member 1): "flash" message after an action, shown once -->
+    <!-- PHP TODO (Member 2): "flash" message after an action, shown once -->
     <div class="alert alert-success">Appointment booked! The doctor will confirm it soon.</div>
 
     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -43,7 +43,7 @@
         <a href="book_appointment.php" class="btn btn-success">+ Book Appointment</a>
     </div>
 
-    <!-- PHP TODO (Member 2): show this box instead of the table when there are no appointments -->
+    <!-- PHP TODO (Member 3): show this box instead of the table when there are no appointments -->
     <div class="alert alert-info">You have no appointments yet. <a href="book_appointment.php">Book one now</a>.</div>
 
     <div class="table-responsive">
@@ -61,7 +61,7 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- PHP TODO (Member 2): repeat ONE <tr> for every appointment. These rows are samples. -->
+                <!-- PHP TODO (Member 3): repeat ONE <tr> for every appointment. These rows are samples. -->
                 <tr>
                     <td>2026-11-25</td>
                     <td>10:00</td>

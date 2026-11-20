@@ -2,7 +2,7 @@
 <!--
     admin_dashboard.php - totals at the top + every appointment in the hospital
     HTML: done.
-    PHP TODO (Member 3): only admins can open this page, count rows for the 4 boxes (SELECT COUNT(*)),
+    PHP TODO (Member 1): only admins can open this page, count rows for the 4 boxes (SELECT COUNT(*)),
                          list all appointments (SELECT + JOIN), and make Delete work (DELETE).
 -->
 <html lang="en">
@@ -39,7 +39,7 @@
     <h2 class="mb-4">Admin Dashboard</h2>
 
     <!-- ===== 4 number boxes ===== -->
-    <!-- PHP TODO (Member 3): replace each number with a COUNT(*) from the database -->
+    <!-- PHP TODO (Member 1): replace each number with a COUNT(*) from the database -->
     <div class="row g-4 mb-5 text-center">
         <div class="col-6 col-lg-3">
             <a href="admin_patients.php" class="text-decoration-none">
@@ -77,7 +77,7 @@
                 <tr><th>#</th><th>Date</th><th>Time</th><th>Patient</th><th>Doctor</th><th>Reason</th><th>Status</th><th></th></tr>
             </thead>
             <tbody>
-                <!-- PHP TODO (Member 3): one <tr> per appointment. Sample rows below. -->
+                <!-- PHP TODO (Member 1): one <tr> per appointment. Sample rows below. -->
                 <tr>
                     <td>1</td>
                     <td>2026-11-25</td>

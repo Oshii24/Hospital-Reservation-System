@@ -2,7 +2,7 @@
 <!--
     admin_doctors.php - the admin creates doctor accounts and deletes doctors
     HTML: done.
-    PHP TODO (Member 3): validate the form, then INSERT into users (role 'doctor')
+    PHP TODO (Member 5): validate the form, then INSERT into users (role 'doctor')
                          AND INSERT into doctors. List doctors (SELECT + JOIN). Delete (DELETE).
 -->
 <html lang="en">
@@ -70,7 +70,7 @@
                             <label class="form-label" for="department_id">Department</label>
                             <select class="form-select" id="department_id" name="department_id" required>
                                 <option value="">Choose...</option>
-                                <!-- PHP TODO (Member 3): one <option> per department. value = departments.id -->
+                                <!-- PHP TODO (Member 5): one <option> per department. value = departments.id -->
                                 <option value="2">Cardiology</option>
                                 <option value="1">General Medicine</option>
                                 <option value="4">Orthopedics</option>
@@ -99,7 +99,7 @@
                         <tr><th>Name</th><th>Department</th><th>Contact</th><th>Appointments</th><th></th></tr>
                     </thead>
                     <tbody>
-                        <!-- PHP TODO (Member 3): one <tr> per doctor. Sample rows below. -->
+                        <!-- PHP TODO (Member 5): one <tr> per doctor. Sample rows below. -->
                         <tr>
                             <td>Dr. Sara Ahmed<br><small class="text-muted">Cardiologist</small></td>
                             <td>Cardiology</td>

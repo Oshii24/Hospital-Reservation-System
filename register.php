@@ -2,7 +2,7 @@
 <!--
     register.php - a new PATIENT creates an account
     HTML: done.
-    PHP TODO (Member 1): validate the form and INSERT the patient into the users table.
+    PHP TODO (Member 2): validate the form and INSERT the patient into the users table.
 -->
 <html lang="en">
 <head>
@@ -37,7 +37,7 @@
             <div class="card-body p-4">
                 <h2 class="mb-4 text-center">Create a Patient Account</h2>
 
-                <!-- PHP TODO (Member 1): show this red box ONLY when there are validation errors -->
+                <!-- PHP TODO (Member 2): show this red box ONLY when there are validation errors -->
                 <div class="alert alert-danger">
                     <ul class="mb-0">
                         <li>Example error: Password must be at least 6 characters.</li>

@@ -2,7 +2,7 @@
 <!--
     login.php - ONE login page for admins, doctors and patients
     HTML: done.
-    PHP TODO (Member 1): check the email + password, start the session,
+    PHP TODO (Member 2): check the email + password, start the session,
                          and send the user to the dashboard of their role.
 -->
 <html lang="en">
@@ -38,7 +38,7 @@
             <div class="card-body p-4">
                 <h2 class="mb-4 text-center">Login</h2>
 
-                <!-- PHP TODO (Member 1): show ONLY when login fails -->
+                <!-- PHP TODO (Member 2): show ONLY when login fails -->
                 <div class="alert alert-danger">Wrong email or password.</div>
 
                 <form method="POST" action="login.php">

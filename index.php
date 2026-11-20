@@ -3,7 +3,7 @@
     index.php - Home page (anyone can see it)
     HTML: done.
     PHP TODO (Member 1): replace the navbar and footer with include files.
-    PHP TODO (Member 3): load the departments from the database (see the TODO below).
+    PHP TODO (Member 4): load the departments from the database (see the TODO below).
 -->
 <html lang="en">
 <head>
@@ -74,7 +74,7 @@
     <!-- ===== Departments ===== -->
     <h2 class="mb-3">Our Departments</h2>
     <div class="row g-4">
-        <!-- PHP TODO (Member 3): SELECT name, description FROM departments
+        <!-- PHP TODO (Member 4): SELECT name, description FROM departments
              and repeat ONE of these cards for every row. Delete the other sample cards. -->
         <div class="col-sm-6 col-lg-3">
             <div class="card h-100 border-primary card-hover">

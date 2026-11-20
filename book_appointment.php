@@ -2,7 +2,7 @@
 <!--
     book_appointment.php - a patient books an appointment with a doctor
     HTML: done.
-    PHP TODO (Member 2): fill the doctor list from the database (SELECT),
+    PHP TODO (Member 3): fill the doctor list from the database (SELECT),
                          validate the form, block double bookings, and save it (INSERT).
 -->
 <html lang="en">
@@ -39,7 +39,7 @@
             <div class="card-body p-4">
                 <h2 class="mb-4 text-center">Book an Appointment</h2>
 
-                <!-- PHP TODO (Member 2): show ONLY when there are validation errors -->
+                <!-- PHP TODO (Member 3): show ONLY when there are validation errors -->
                 <div class="alert alert-danger">
                     <ul class="mb-0">
                         <li>Example error: This doctor is already booked at that time.</li>
@@ -51,7 +51,7 @@
                         <label class="form-label" for="doctor_id">Doctor</label>
                         <select class="form-select" id="doctor_id" name="doctor_id" required>
                             <option value="">Choose a doctor...</option>
-                            <!-- PHP TODO (Member 2): one <option> per doctor. value = doctors.id -->
+                            <!-- PHP TODO (Member 3): one <option> per doctor. value = doctors.id -->
                             <option value="1">Dr. Sara Ahmed &mdash; Cardiology (Cardiologist)</option>
                             <option value="2">Dr. Omar Khalid &mdash; Pediatrics (Pediatrician)</option>
                         </select>
@@ -59,7 +59,7 @@
                     <div class="row">
                         <div class="col-6 mb-3">
                             <label class="form-label" for="appointment_date">Date</label>
-                            <!-- PHP TODO (Member 2): add min="today's date" so past days can't be picked -->
+                            <!-- PHP TODO (Member 3): add min="today's date" so past days can't be picked -->
                             <input class="form-control" type="date" id="appointment_date" name="appointment_date" required>
                         </div>
                         <div class="col-6 mb-3">

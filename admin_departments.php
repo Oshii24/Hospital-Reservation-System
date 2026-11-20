@@ -2,7 +2,7 @@
 <!--
     admin_departments.php - add, edit and delete departments
     HTML: done.
-    PHP TODO (Member 3): this page uses ALL FOUR database actions:
+    PHP TODO (Member 4): this page uses ALL FOUR database actions:
         INSERT (Add button), SELECT (the table), UPDATE (Edit -> Save), DELETE (Delete button).
 -->
 <html lang="en">
@@ -43,7 +43,7 @@
         <div class="col-lg-4">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <!-- PHP TODO (Member 3): title says "Edit department" when the page is opened as
+                    <!-- PHP TODO (Member 4): title says "Edit department" when the page is opened as
                          admin_departments.php?edit=3 and the form is filled with that department -->
                     <h5>Add a department</h5>
                     <form method="POST" action="admin_departments.php">
@@ -72,7 +72,7 @@
                         <tr><th>Name</th><th>Description</th><th>Doctors</th><th></th></tr>
                     </thead>
                     <tbody>
-                        <!-- PHP TODO (Member 3): one <tr> per department. Sample rows below. -->
+                        <!-- PHP TODO (Member 4): one <tr> per department. Sample rows below. -->
                         <tr>
                             <td>Cardiology</td>
                             <td>Heart and blood vessel care.</td>

@@ -2,7 +2,7 @@
 <!--
     admin_patients.php - the admin searches and deletes patients
     HTML: done.
-    PHP TODO (Member 3): list patients (SELECT ... WHERE role = 'patient'),
+    PHP TODO (Member 5): list patients (SELECT ... WHERE role = 'patient'),
                          make Search work (LIKE), and make Delete work (DELETE).
 -->
 <html lang="en">
@@ -51,7 +51,7 @@
                 <tr><th>Name</th><th>Email</th><th>Phone</th><th>Gender</th><th>Date of birth</th><th>Appointments</th><th>Joined</th><th></th></tr>
             </thead>
             <tbody>
-                <!-- PHP TODO (Member 3): one <tr> per patient. Sample rows below.
+                <!-- PHP TODO (Member 5): one <tr> per patient. Sample rows below.
                      When nothing is found show:
                      <tr><td colspan="8" class="text-center text-muted">No patients found.</td></tr> -->
                 <tr>

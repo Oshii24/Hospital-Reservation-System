@@ -3,7 +3,7 @@
     doctor_dashboard.php - the doctor sees appointments booked with them,
                            changes the status and writes notes
     HTML: done.
-    PHP TODO (Member 2): only doctors can open this page, list THEIR appointments (SELECT + JOIN),
+    PHP TODO (Member 4): only doctors can open this page, list THEIR appointments (SELECT + JOIN),
                          and make the Save button work (UPDATE status + doctor_notes).
 -->
 <html lang="en">
@@ -37,7 +37,7 @@
     <h2 class="mb-3">Appointments booked with me</h2>
 
     <div class="row g-4">
-        <!-- PHP TODO (Member 2): repeat ONE card (the whole col-md-6 div) for every appointment.
+        <!-- PHP TODO (Member 4): repeat ONE card (the whole col-md-6 div) for every appointment.
              These two cards are samples. -->
         <div class="col-md-6 col-lg-4">
             <div class="card h-100 shadow-sm">

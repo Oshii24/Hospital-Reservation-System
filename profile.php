@@ -2,7 +2,7 @@
 <!--
     profile.php - ANY logged-in user edits their own name, phone and password
     HTML: done.
-    PHP TODO (Member 1): fill the form with the user's data (SELECT) and save changes (UPDATE).
+    PHP TODO (Member 2): fill the form with the user's data (SELECT) and save changes (UPDATE).
 -->
 <html lang="en">
 <head>
