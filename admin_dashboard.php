@@ -1,121 +1,123 @@
-<!DOCTYPE html>
-<!--
-    admin_dashboard.html - totals at the top + every appointment in the hospital
-    HTML: done.
-    PHP TODO (Member 1): only admins can open this page, count rows for the 4 boxes (SELECT COUNT(*)),
-                         list all appointments (SELECT + JOIN), and make Delete work (DELETE).
--->
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin Dashboard | City Hospital</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-</head>
-<body class="d-flex flex-column min-vh-100">
+<?php
+// admin_dashboard.php - totals at the top + every appointment in the hospital (Member 1)
+require_once 'includes/db.php';
 
-<!-- ===== NAVBAR (admin version) ===== -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container">
-        <a class="navbar-brand fw-bold" href="index.html">&#127973; City Hospital</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="mainNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link active" href="admin_dashboard.html">Dashboard</a></li>
-                <li class="nav-item"><a class="nav-link" href="admin_doctors.html">Doctors</a></li>
-                <li class="nav-item"><a class="nav-link" href="admin_departments.html">Departments</a></li>
-                <li class="nav-item"><a class="nav-link" href="admin_patients.html">Patients</a></li>
-                <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
-                <li class="nav-item"><a class="nav-link" href="logout.html">Logout (System Admin)</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+// TODO: once Member 2 pushes includes/auth.php, uncomment these two lines
+// so only admins can open this page:
+// require_once 'includes/auth.php';
+// require_login('admin');
 
-<main class="container py-4 flex-grow-1">
-    <h2 class="mb-4">Admin Dashboard</h2>
+// ---------- DELETE an appointment ----------
+// The Delete button sends a POST with the appointment's id in "delete_id"
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
+    $id = (int) $_POST['delete_id'];   // (int) turns it into a number, for safety
 
-    <!-- ===== 4 number boxes ===== -->
-    <!-- PHP TODO (Member 1): replace each number with a COUNT(*) from the database -->
-    <div class="row g-4 mb-5 text-center">
-        <div class="col-6 col-lg-3">
-            <a href="admin_patients.html" class="text-decoration-none">
-                <div class="card card-hover border-primary"><div class="card-body">
-                    <div class="stat-number text-primary">12</div>Patients
-                </div></div>
-            </a>
-        </div>
-        <div class="col-6 col-lg-3">
-            <a href="admin_doctors.html" class="text-decoration-none">
-                <div class="card card-hover border-success"><div class="card-body">
-                    <div class="stat-number text-success">4</div>Doctors
-                </div></div>
-            </a>
-        </div>
-        <div class="col-6 col-lg-3">
-            <a href="admin_departments.html" class="text-decoration-none">
-                <div class="card card-hover border-warning"><div class="card-body">
-                    <div class="stat-number text-warning">4</div>Departments
-                </div></div>
-            </a>
-        </div>
-        <div class="col-6 col-lg-3">
-            <div class="card card-hover border-danger"><div class="card-body">
-                <div class="stat-number text-danger">27</div>Appointments
+    $stmt = $conn->prepare('DELETE FROM appointments WHERE id = ?');
+    $stmt->bind_param('i', $id);       // 'i' = integer
+    $stmt->execute();
+
+    // Reload the page, so pressing F5 doesn't send the delete again
+    header('Location: admin_dashboard.php');
+    exit;
+}
+
+// ---------- COUNT rows for the 4 boxes (SELECT COUNT) ----------
+$count_patients     = $conn->query("SELECT COUNT(*) AS c FROM users WHERE role = 'patient'")->fetch_assoc()['c'];
+$count_doctors      = $conn->query('SELECT COUNT(*) AS c FROM doctors')->fetch_assoc()['c'];
+$count_departments  = $conn->query('SELECT COUNT(*) AS c FROM departments')->fetch_assoc()['c'];
+$count_appointments = $conn->query('SELECT COUNT(*) AS c FROM appointments')->fetch_assoc()['c'];
+
+// ---------- ALL appointments with names (SELECT + JOIN) ----------
+// p  = the patient (a row in users)
+// d  = the doctor's row in doctors
+// du = the doctor's own row in users (that's where their name is)
+$appointments = $conn->query(
+    'SELECT a.id, a.appointment_date, a.appointment_time, a.reason, a.status,
+            p.full_name  AS patient_name,
+            du.full_name AS doctor_name
+     FROM appointments a
+     JOIN users p   ON a.patient_id = p.id
+     JOIN doctors d ON a.doctor_id  = d.id
+     JOIN users du  ON d.user_id    = du.id
+     ORDER BY a.appointment_date DESC, a.appointment_time DESC'
+);
+
+// Bootstrap colour for each status
+$badge = [
+    'pending'   => 'warning',
+    'confirmed' => 'primary',
+    'completed' => 'success',
+    'cancelled' => 'secondary',
+];
+
+$page_title = 'Admin Dashboard';
+require 'includes/header.php';
+?>
+
+<h2 class="mb-4">Admin Dashboard</h2>
+
+<!-- ===== 4 number boxes ===== -->
+<div class="row g-4 mb-5 text-center">
+    <div class="col-6 col-lg-3">
+        <a href="admin_patients.php" class="text-decoration-none">
+            <div class="card card-hover border-primary"><div class="card-body">
+                <div class="stat-number text-primary"><?= $count_patients ?></div>Patients
             </div></div>
-        </div>
+        </a>
     </div>
+    <div class="col-6 col-lg-3">
+        <a href="admin_doctors.php" class="text-decoration-none">
+            <div class="card card-hover border-success"><div class="card-body">
+                <div class="stat-number text-success"><?= $count_doctors ?></div>Doctors
+            </div></div>
+        </a>
+    </div>
+    <div class="col-6 col-lg-3">
+        <a href="admin_departments.php" class="text-decoration-none">
+            <div class="card card-hover border-warning"><div class="card-body">
+                <div class="stat-number text-warning"><?= $count_departments ?></div>Departments
+            </div></div>
+        </a>
+    </div>
+    <div class="col-6 col-lg-3">
+        <div class="card card-hover border-danger"><div class="card-body">
+            <div class="stat-number text-danger"><?= $count_appointments ?></div>Appointments
+        </div></div>
+    </div>
+</div>
 
-    <!-- ===== All appointments ===== -->
-    <h3 class="mb-3">All Appointments</h3>
+<!-- ===== All appointments ===== -->
+<h3 class="mb-3">All Appointments</h3>
+
+<?php if ($appointments->num_rows === 0): ?>
+    <div class="alert alert-info">There are no appointments yet.</div>
+<?php else: ?>
     <div class="table-responsive">
         <table class="table table-striped table-hover bg-white align-middle">
             <thead class="table-dark">
                 <tr><th>#</th><th>Date</th><th>Time</th><th>Patient</th><th>Doctor</th><th>Reason</th><th>Status</th><th></th></tr>
             </thead>
             <tbody>
-                <!-- PHP TODO (Member 1): one <tr> per appointment. Sample rows below. -->
-                <tr>
-                    <td>1</td>
-                    <td>2026-11-25</td>
-                    <td>10:00</td>
-                    <td>Ali Hassan</td>
-                    <td>Dr. Sara Ahmed</td>
-                    <td>Chest pain when running</td>
-                    <td><span class="badge bg-warning">pending</span></td>
-                    <td>
-                        <form method="POST" action="admin_dashboard.html" class="d-inline">
-                            <input type="hidden" name="delete_id" value="1">
-                            <button class="btn btn-sm btn-danger" type="submit">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>2026-11-27</td>
-                    <td>11:30</td>
-                    <td>Mona Saleh</td>
-                    <td>Dr. Sara Ahmed</td>
-                    <td>Follow-up on blood pressure</td>
-                    <td><span class="badge bg-primary">confirmed</span></td>
-                    <td>
-                        <form method="POST" action="admin_dashboard.html" class="d-inline">
-                            <input type="hidden" name="delete_id" value="2">
-                            <button class="btn btn-sm btn-danger" type="submit">Delete</button>
-                        </form>
-                    </td>
-                </tr>
+                <?php while ($row = $appointments->fetch_assoc()): ?>
+                    <tr>
+                        <td><?= $row['id'] ?></td>
+                        <td><?= htmlspecialchars($row['appointment_date']) ?></td>
+                        <td><?= substr($row['appointment_time'], 0, 5) ?></td>
+                        <td><?= htmlspecialchars($row['patient_name']) ?></td>
+                        <td><?= htmlspecialchars($row['doctor_name']) ?></td>
+                        <td><?= htmlspecialchars($row['reason']) ?></td>
+                        <td><span class="badge bg-<?= $badge[$row['status']] ?>"><?= $row['status'] ?></span></td>
+                        <td>
+                            <form method="POST" action="admin_dashboard.php" class="d-inline">
+                                <input type="hidden" name="delete_id" value="<?= $row['id'] ?>">
+                                <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endwhile; ?>
             </tbody>
         </table>
     </div>
-</main>
+<?php endif; ?>
 
-<footer class="bg-dark text-light text-center py-3 mt-auto">
-    <small>&copy; 2026 City Hospital &middot; CCS2305 Web Programming Project</small>
-</footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?php require 'includes/footer.php'; ?>
