@@ -1,37 +1,10 @@
-<!DOCTYPE html>
-<!--
-    register.html - a new PATIENT creates an account
-    HTML: done.
-    PHP TODO (Member 2): validate the form and INSERT the patient into the users table.
--->
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Register | City Hospital</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-</head>
-<body class="d-flex flex-column min-vh-100">
+<?php
+// register.php - a new PATIENT creates an account
+// PHP TODO (Member 2): validate the form and INSERT the patient into the users table.
+$page_title = 'Register';
+require 'includes/header.php';
+?>
 
-<!-- ===== NAVBAR (visitor version) ===== -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container">
-        <a class="navbar-brand fw-bold" href="index.html">&#127973; City Hospital</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="mainNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
-                <li class="nav-item"><a class="nav-link active" href="register.html">Register</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<main class="container py-4 flex-grow-1">
     <div class="form-box">
         <div class="card shadow-sm">
             <div class="card-body p-4">
@@ -45,7 +18,7 @@
                 </div>
 
                 <!-- The "name" of every input is what PHP reads with $_POST['name'] -->
-                <form method="POST" action="register.html">
+                <form method="POST" action="register.php">
                     <div class="mb-3">
                         <label class="form-label" for="full_name">Full name</label>
                         <input class="form-control" type="text" id="full_name" name="full_name" required minlength="3">
@@ -82,15 +55,9 @@
                     </div>
                     <button class="btn btn-primary w-100" type="submit">Register</button>
                 </form>
-                <p class="text-center mt-3 mb-0">Already have an account? <a href="login.html">Log in</a></p>
+                <p class="text-center mt-3 mb-0">Already have an account? <a href="login.php">Log in</a></p>
             </div>
         </div>
     </div>
-</main>
 
-<footer class="bg-dark text-light text-center py-3 mt-auto">
-    <small>&copy; 2026 City Hospital &middot; CCS2305 Web Programming Project</small>
-</footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?php require 'includes/footer.php'; ?>

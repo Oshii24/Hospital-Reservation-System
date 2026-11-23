@@ -1,45 +1,15 @@
-<!DOCTYPE html>
-<!--
-    admin_patients.html - the admin searches and deletes patients
-    HTML: done.
-    PHP TODO (Member 5): list patients (SELECT ... WHERE role = 'patient'),
-                         make Search work (LIKE), and make Delete work (DELETE).
--->
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Patients | City Hospital</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-</head>
-<body class="d-flex flex-column min-vh-100">
+<?php
+// admin_patients.php - the admin searches and deletes patients
+// PHP TODO (Member 5): list patients (SELECT ... WHERE role = 'patient'),
+//                      make Search work (LIKE), and make Delete work (DELETE).
+$page_title = 'Patients';
+require 'includes/header.php';
+?>
 
-<!-- ===== NAVBAR (admin version) ===== -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container">
-        <a class="navbar-brand fw-bold" href="index.html">&#127973; City Hospital</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="mainNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="admin_dashboard.html">Dashboard</a></li>
-                <li class="nav-item"><a class="nav-link" href="admin_doctors.html">Doctors</a></li>
-                <li class="nav-item"><a class="nav-link" href="admin_departments.html">Departments</a></li>
-                <li class="nav-item"><a class="nav-link active" href="admin_patients.html">Patients</a></li>
-                <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
-                <li class="nav-item"><a class="nav-link" href="logout.html">Logout (System Admin)</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<main class="container py-4 flex-grow-1">
     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
         <h2 class="mb-0">Patients</h2>
-        <!-- GET form: the search word appears in the address bar, e.g. admin_patients.html?search=ali -->
-        <form method="GET" action="admin_patients.html" class="d-flex gap-2">
+        <!-- GET form: the search word appears in the address bar, e.g. admin_patients.php?search=ali -->
+        <form method="GET" action="admin_patients.php" class="d-flex gap-2">
             <input class="form-control" type="search" name="search" placeholder="Search name or email">
             <button class="btn btn-outline-primary" type="submit">Search</button>
         </form>
@@ -63,7 +33,7 @@
                     <td>2</td>
                     <td>20 Nov 2026</td>
                     <td>
-                        <form method="POST" action="admin_patients.html" class="d-inline">
+                        <form method="POST" action="admin_patients.php" class="d-inline">
                             <input type="hidden" name="delete_id" value="4">
                             <button class="btn btn-sm btn-danger" type="submit">Delete</button>
                         </form>
@@ -78,7 +48,7 @@
                     <td>1</td>
                     <td>18 Nov 2026</td>
                     <td>
-                        <form method="POST" action="admin_patients.html" class="d-inline">
+                        <form method="POST" action="admin_patients.php" class="d-inline">
                             <input type="hidden" name="delete_id" value="5">
                             <button class="btn btn-sm btn-danger" type="submit">Delete</button>
                         </form>
@@ -87,11 +57,5 @@
             </tbody>
         </table>
     </div>
-</main>
 
-<footer class="bg-dark text-light text-center py-3 mt-auto">
-    <small>&copy; 2026 City Hospital &middot; CCS2305 Web Programming Project</small>
-</footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?php require 'includes/footer.php'; ?>
