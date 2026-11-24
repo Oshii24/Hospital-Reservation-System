@@ -1,9 +1,12 @@
 <?php
-// patient_dashboard.php - the patient sees their appointments and can cancel them
-// PHP TODO (Member 3): only patients can open this page, list THEIR appointments (SELECT + JOIN),
-//                      and make the Cancel button work (UPDATE status to 'cancelled').
+
+// Only logged-in patients can access this page
+require_once 'includes/auth.php';
+require_login('patient');
+
 $page_title = 'My Appointments';
 require 'includes/header.php';
+
 ?>
 
     <!-- PHP TODO (Member 2): "flash" message after an action, shown once -->
