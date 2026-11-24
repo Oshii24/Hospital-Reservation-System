@@ -1,4 +1,4 @@
-```php
+
 <?php
 
 // Start the session
@@ -48,4 +48,3 @@ function e($text) {
 }
 
 ?>
-```
