@@ -13,13 +13,18 @@ $email = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Get form data
-    $email = trim($_POST['email']);
-    $password = $_POST['password'];
+    $email = trim($_POST['email'] ?? '');
+    $password = $_POST['password'] ?? '';
 
     // Check if fields are empty
     if (empty($email) || empty($password)) {
 
         $error = 'Please enter your email and password.';
+
+    // Check the email looks like an email
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+
+        $error = 'Please enter a valid email address.';
 
     } else {
 
@@ -78,8 +83,6 @@ require 'includes/header.php';
         <div class="card-body p-4">
 
             <h2 class="mb-4 text-center">Login</h2>
-
-            <?php show_flash(); ?>
 
             <?php if (!empty($error)): ?>
                 <div class="alert alert-danger">

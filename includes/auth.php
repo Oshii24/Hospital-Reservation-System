@@ -1,8 +1,11 @@
-
 <?php
+// The file must start with "<?php" on line 1: anything before it (even an
+// empty line) is sent to the browser and can break session_start() and header().
 
-// Start the session
-session_start();
+// Start the session (only once, even if this file is included twice)
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 
 // Check if the user is logged in
@@ -29,6 +32,7 @@ function set_flash($msg) {
 
 
 // Display the success message
+// (header.php calls this on every page, so pages don't need to call it)
 function show_flash() {
 
     if (isset($_SESSION['flash'])) {
@@ -47,4 +51,5 @@ function e($text) {
     return htmlspecialchars((string) $text, ENT_QUOTES, 'UTF-8');
 }
 
-?>
+// No closing "?>" tag: leaving it out means no stray spaces or empty lines
+// after it can be sent to the browser by accident.

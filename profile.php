@@ -123,8 +123,6 @@ require 'includes/header.php';
 
             <h2 class="mb-1">My Profile</h2>
 
-            <?php show_flash(); ?>
-
             <?php if (!empty($error)): ?>
                 <div class="alert alert-danger">
                     <?= e($error) ?>

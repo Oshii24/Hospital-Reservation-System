@@ -7,8 +7,9 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-$role = $_SESSION['role'] ?? null;            // 'admin', 'doctor', 'patient', or null = visitor
-$name = $_SESSION['full_name'] ?? '';
+// "nav_" names so they never overwrite a page's own $role / $name variables
+$nav_role = $_SESSION['role'] ?? null;            // 'admin', 'doctor', 'patient', or null = visitor
+$nav_name = $_SESSION['full_name'] ?? '';
 $current_page = basename($_SERVER['PHP_SELF']); // e.g. "login.php"
 
 // Prints one menu link. Highlights it when it's the page we're on.
@@ -40,21 +41,21 @@ function nav_link($file, $label)
             <ul class="navbar-nav ms-auto">
                 <?php
                 // Different links for each role
-                if ($role === 'admin') {
+                if ($nav_role === 'admin') {
                     nav_link('admin_dashboard.php', 'Dashboard');
                     nav_link('admin_doctors.php', 'Doctors');
                     nav_link('admin_departments.php', 'Departments');
                     nav_link('admin_patients.php', 'Patients');
-                } elseif ($role === 'doctor') {
+                } elseif ($nav_role === 'doctor') {
                     nav_link('doctor_dashboard.php', 'My Appointments');
-                } elseif ($role === 'patient') {
+                } elseif ($nav_role === 'patient') {
                     nav_link('patient_dashboard.php', 'My Appointments');
                     nav_link('book_appointment.php', 'Book Appointment');
                 }
 
-                if ($role) {   // anyone logged in
+                if ($nav_role) {   // anyone logged in
                     nav_link('profile.php', 'Profile');
-                    nav_link('logout.php', 'Logout (' . htmlspecialchars($name) . ')');
+                    nav_link('logout.php', 'Logout (' . htmlspecialchars($nav_name) . ')');
                 } else {       // visitor
                     nav_link('index.php', 'Home');
                     nav_link('login.php', 'Login');

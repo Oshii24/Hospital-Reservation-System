@@ -5,7 +5,13 @@ require_once 'includes/db.php';
 require_once 'includes/auth.php';
 
 $error = "";
+
+// Start empty, so the form can show what the user typed after an error
+$name = "";
 $email = "";
+$phone = "";
+$gender = "";
+$dob = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -146,7 +152,7 @@ require 'includes/header.php';
                     <label class="form-label" for="full_name">Full name</label>
                     <input class="form-control" type="text"
                            id="full_name" name="full_name"
-                           required minlength="3">
+                           value="<?= e($name) ?>" required minlength="3">
                 </div>
 
                 <div class="mb-3">
@@ -160,7 +166,7 @@ require 'includes/header.php';
                     <label class="form-label" for="phone">Phone</label>
                     <input class="form-control" type="tel"
                            id="phone" name="phone"
-                           required pattern="[0-9]{8,15}"
+                           value="<?= e($phone) ?>" required pattern="[0-9]{8,15}"
                            placeholder="Numbers only">
                 </div>
 
@@ -171,8 +177,8 @@ require 'includes/header.php';
                         <select class="form-select" id="gender"
                                 name="gender" required>
                             <option value="">Choose...</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
+                            <option value="male" <?= $gender === 'male' ? 'selected' : '' ?>>Male</option>
+                            <option value="female" <?= $gender === 'female' ? 'selected' : '' ?>>Female</option>
                         </select>
                     </div>
 
@@ -182,7 +188,8 @@ require 'includes/header.php';
                         </label>
                         <input class="form-control" type="date"
                                id="date_of_birth"
-                               name="date_of_birth" required>
+                               name="date_of_birth" value="<?= e($dob) ?>"
+                               max="<?= date('Y-m-d') ?>" required>
                     </div>
 
                 </div>
